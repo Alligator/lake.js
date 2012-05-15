@@ -3,7 +3,8 @@
         var settings = $.extend({
             'speed':    1,
             'scale':    1,
-            'waves':    10
+            'waves':    10,
+            'image':    true
         }, options);
 
         var waves = settings['waves'];
@@ -72,7 +73,7 @@
                         // edge wrapping fix
                         var m = j % (w*4);
                         var n = scale * 10 * (y/waves);
-                        if (m < n || m > (w*4)-n) { 
+                        if (m < n || m > (w*4)-n) {
                             var sign = y < w/2 ? 1 : -1;
                             od[pixel]   = od[pixel + 4 * sign];
                             od[++pixel] = od[pixel + 4 * sign];
@@ -112,12 +113,20 @@
                 frames.push(odd);
             }
             c.restore();
+            if (!settings.image) {
+                c.height = c.height/2;
+            }
         };
 
 
         setInterval(function() {
             if (img_loaded) {
-                c.putImageData(frames[frame], 0, h/2);
+                if (!settings.image) {
+                    c.putImageData(frames[frame], 0, 0);
+                } else {
+                    c.putImageData(frames[frame], 0, h/2);
+                }
+                // c.putImageData(frames[frame], 0, h/2);
                 if (frame < max_frames) {
                     frame++;
                 } else {
