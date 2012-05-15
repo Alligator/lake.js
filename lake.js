@@ -126,7 +126,7 @@
                 } else {
                     c.putImageData(frames[frame], 0, h/2);
                 }
-                c.putImageData(frames[frame], 0, h/2);
+                // c.putImageData(frames[frame], 0, h/2);
                 if (frame < max_frames) {
                     frame++;
                 } else {
